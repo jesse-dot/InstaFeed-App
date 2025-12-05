@@ -1,0 +1,127 @@
+.notifications-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.notifications-container h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.notifications-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #8e8e8e;
+}
+
+.no-notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+}
+
+.no-notifications-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.no-notifications p {
+  margin: 0;
+  color: #262626;
+}
+
+.no-notifications-hint {
+  margin-top: 8px !important;
+  font-size: 14px;
+  color: #8e8e8e;
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid #efefef;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:hover {
+  background: #fafafa;
+}
+
+.notification-item.unread {
+  background: #fef9f9;
+}
+
+.notification-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.notification-content {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.notification-icon {
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.notification-text {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.notification-username {
+  font-weight: 600;
+  color: #262626;
+}
+
+.notification-message {
+  color: #262626;
+}
+
+.notification-time {
+  display: block;
+  font-size: 12px;
+  color: #8e8e8e;
+  margin-top: 2px;
+}
+
+.notification-post-preview {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  flex-shrink: 0;
+}

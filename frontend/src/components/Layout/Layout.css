@@ -1,0 +1,115 @@
+.layout {
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: white;
+  border-bottom: 1px solid #dbdbdb;
+  z-index: 100;
+}
+
+.navbar-content {
+  max-width: 975px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: 'Billabong', cursive, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 28px;
+  color: #262626;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.nav-link {
+  color: #262626;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.nav-link:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-link.active {
+  font-weight: 600;
+}
+
+.nav-label {
+  display: none;
+}
+
+.nav-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.logout-btn {
+  color: #ed4956;
+}
+
+.main-content {
+  padding-top: 80px;
+  max-width: 975px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  min-height: calc(100vh - 60px);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    top: auto;
+    bottom: 0;
+    height: 50px;
+  }
+
+  .navbar-content {
+    justify-content: center;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .main-content {
+    padding-top: 20px;
+    padding-bottom: 70px;
+  }
+
+  .logout-btn {
+    display: none;
+  }
+}
