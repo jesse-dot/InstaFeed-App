@@ -50,7 +50,7 @@ router.post('/sync', protect, [
     res.status(200).json({
       success: true,
       user: {
-        id: user._id,
+        _id: user._id,
         clerkId: user.clerkId,
         username: user.username,
         email: user.email,

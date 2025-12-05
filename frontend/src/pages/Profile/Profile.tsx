@@ -6,6 +6,12 @@ import { useCurrentUser } from '../../context/UserContext';
 import { User, Post } from '../../types';
 import './Profile.css';
 
+interface EditFormData {
+  fullName: string;
+  bio: string;
+  website: string;
+}
+
 const Profile: React.FC = () => {
   const { username } = useParams<{ username: string }>();
   const { currentUser, updateProfile } = useCurrentUser();
@@ -16,7 +22,7 @@ const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'posts' | 'saved'>('posts');
   const [isFollowing, setIsFollowing] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editForm, setEditForm] = useState({
+  const [editForm, setEditForm] = useState<EditFormData>({
     fullName: '',
     bio: '',
     website: '',
@@ -77,7 +83,7 @@ const Profile: React.FC = () => {
   const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await updateProfile(editForm as any);
+      await updateProfile(editForm);
       setUser(prev => prev ? { ...prev, ...editForm } : null);
       setShowEditModal(false);
     } catch (error) {

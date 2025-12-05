@@ -70,7 +70,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       });
 
       setCurrentUser(response.data.user);
-      socketService.joinUserRoom(response.data.user.id);
+      socketService.joinUserRoom(response.data.user._id);
     } catch (error) {
       console.error('Error syncing user:', error);
       throw error;

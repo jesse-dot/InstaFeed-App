@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { Heart, MessageCircle, Bookmark, Send, MoreHorizontal } from 'lucide-react';
-import { Post } from '../../types';
+import { Post, Comment } from '../../types';
 import { postApi, commentApi } from '../../services/api';
 import { useCurrentUser } from '../../context/UserContext';
 import './PostCard.css';
@@ -20,7 +20,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onPostUpdate, onPostDelete })
   const [saved, setSaved] = useState(currentUser?.savedPosts?.includes(post._id) || false);
   const [comment, setComment] = useState('');
   const [showComments, setShowComments] = useState(false);
-  const [comments, setComments] = useState(post.comments || []);
+  const [comments, setComments] = useState<Comment[]>(post.comments || []);
   const [showMenu, setShowMenu] = useState(false);
 
   const handleLike = async () => {
@@ -176,7 +176,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onPostUpdate, onPostDelete })
 
       {showComments && (
         <div className="comments-section">
-          {comments.slice(0, 3).map((c: any) => (
+          {comments.slice(0, 3).map((c: Comment) => (
             <div key={c._id} className="comment">
               <Link to={`/profile/${c.user?.username}`} className="comment-username">
                 {c.user?.username}

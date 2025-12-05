@@ -1,4 +1,5 @@
 import { io, Socket } from 'socket.io-client';
+import { Message } from '../types';
 
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000';
 
@@ -42,7 +43,7 @@ class SocketService {
     }
   }
 
-  onNewMessage(callback: (message: any) => void): void {
+  onNewMessage(callback: (message: Message) => void): void {
     if (this.socket) {
       this.socket.on('new_message', callback);
     }

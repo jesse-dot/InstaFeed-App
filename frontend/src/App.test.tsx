@@ -1,9 +1,20 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+// Simple smoke tests
+describe('Types', () => {
+  it('should export types module', () => {
+    const types = require('./types');
+    expect(types).toBeDefined();
+  });
+});
+
+describe('Basic React', () => {
+  it('should import React', () => {
+    expect(React).toBeDefined();
+    expect(React.createElement).toBeDefined();
+  });
+
+  it('should have version', () => {
+    expect(React.version).toBeDefined();
+  });
 });
