@@ -4,11 +4,17 @@ import { User } from '../types';
 import { userApi, setAuthToken } from '../services/api';
 import socketService from '../services/socket';
 
+interface SyncUserData {
+  username: string;
+  fullName?: string;
+  bio?: string;
+}
+
 interface UserContextType {
   currentUser: User | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
   loading: boolean;
-  syncUser: () => Promise<void>;
+  syncUser: (data: SyncUserData) => Promise<void>;
   updateProfile: (data: Partial<User>) => Promise<void>;
 }
 
@@ -55,7 +61,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     initializeUser();
   }, [clerkUser, clerkLoaded, getToken]);
 
-  const syncUser = async () => {
+  const syncUser = async (data: SyncUserData) => {
     if (!clerkUser) return;
 
     try {
@@ -63,11 +69,17 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setAuthToken(token);
 
       const response = await userApi.syncUser({
-        username: clerkUser.username || clerkUser.emailAddresses[0].emailAddress.split('@')[0],
+        username: data.username,
         email: clerkUser.emailAddresses[0].emailAddress,
-        fullName: clerkUser.fullName || '',
+        fullName: data.fullName || '',
         profilePicture: clerkUser.imageUrl || '',
       });
+
+      // If bio was provided, update the profile with it
+      if (data.bio) {
+        await userApi.updateProfile({ bio: data.bio });
+        response.data.user.bio = data.bio;
+      }
 
       setCurrentUser(response.data.user);
       socketService.joinUserRoom(response.data.user._id);

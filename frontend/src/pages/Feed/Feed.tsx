@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { postApi } from '../../services/api';
 import { Post } from '../../types';
 import PostCard from '../../components/Post/PostCard';
+import SetupModal from '../../components/Common/SetupModal';
 import { useCurrentUser } from '../../context/UserContext';
 import './Feed.css';
 
@@ -11,21 +12,17 @@ const Feed: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [needsSync, setNeedsSync] = useState(false);
+  const [showSetupModal, setShowSetupModal] = useState(false);
 
   useEffect(() => {
     if (!userLoading && !currentUser) {
-      setNeedsSync(true);
+      setShowSetupModal(true);
     }
   }, [userLoading, currentUser]);
 
-  const handleSyncUser = async () => {
-    try {
-      await syncUser();
-      setNeedsSync(false);
-    } catch (error) {
-      console.error('Error syncing user:', error);
-    }
+  const handleSetupComplete = async (data: { username: string; fullName: string; bio: string }) => {
+    await syncUser(data);
+    setShowSetupModal(false);
   };
 
   const fetchPosts = useCallback(async () => {
@@ -70,16 +67,8 @@ const Feed: React.FC = () => {
     return <div className="feed-loading">Loading...</div>;
   }
 
-  if (needsSync) {
-    return (
-      <div className="feed-sync">
-        <h2>Welcome to InstaFeed!</h2>
-        <p>Please complete your profile setup to continue.</p>
-        <button onClick={handleSyncUser} className="sync-btn">
-          Complete Setup
-        </button>
-      </div>
-    );
+  if (showSetupModal) {
+    return <SetupModal onComplete={handleSetupComplete} />;
   }
 
   return (
