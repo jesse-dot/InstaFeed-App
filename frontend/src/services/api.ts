@@ -20,7 +20,7 @@ export const setAuthToken = (token: string | null) => {
 
 // User API
 export const userApi = {
-  syncUser: (data: { username: string; email: string; fullName?: string; profilePicture?: string }) =>
+  syncUser: (data: { username: string; email: string; fullName?: string; profilePicture?: string; bio?: string }) =>
     api.post('/users/sync', data),
   getMe: () => api.get('/users/me'),
   updateProfile: (data: { fullName?: string; bio?: string; website?: string; profilePicture?: string; isPrivate?: boolean }) =>

@@ -10,7 +10,8 @@ const Notification = require('../models/Notification');
 // @access  Private
 router.post('/sync', protect, [
   body('username').trim().isLength({ min: 3, max: 30 }).withMessage('Username must be 3-30 characters'),
-  body('email').isEmail().normalizeEmail().withMessage('Valid email is required')
+  body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
+  body('bio').optional().trim().isLength({ max: 150 })
 ], async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -18,7 +19,7 @@ router.post('/sync', protect, [
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { username, email, fullName, profilePicture } = req.body;
+    const { username, email, fullName, profilePicture, bio } = req.body;
     const clerkId = req.clerkId;
 
     // Check if user exists
@@ -29,6 +30,7 @@ router.post('/sync', protect, [
       user.email = email || user.email;
       user.fullName = fullName || user.fullName;
       user.profilePicture = profilePicture || user.profilePicture;
+      if (bio !== undefined) user.bio = bio;
       await user.save();
     } else {
       // Check if username is taken
@@ -43,7 +45,8 @@ router.post('/sync', protect, [
         username,
         email,
         fullName: fullName || '',
-        profilePicture: profilePicture || ''
+        profilePicture: profilePicture || '',
+        bio: bio || ''
       });
     }
 

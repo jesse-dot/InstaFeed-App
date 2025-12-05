@@ -73,13 +73,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         email: clerkUser.emailAddresses[0].emailAddress,
         fullName: data.fullName || '',
         profilePicture: clerkUser.imageUrl || '',
+        bio: data.bio || '',
       });
-
-      // If bio was provided, update the profile with it
-      if (data.bio) {
-        await userApi.updateProfile({ bio: data.bio });
-        response.data.user.bio = data.bio;
-      }
 
       setCurrentUser(response.data.user);
       socketService.joinUserRoom(response.data.user._id);
